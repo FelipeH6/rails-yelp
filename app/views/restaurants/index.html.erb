@@ -1,0 +1,22 @@
+<h1>Restaurants:</h1>
+
+<div class="container">
+<ol>
+<% @restaurants.each do |r| %>
+  <li class="card"><%= link_to r.name, restaurant_path(r) %>
+  <h5><%= r.address %></h5>
+  <h5><%= r.category %></h5>
+
+  <% sum = 0 %>
+  <% r.reviews.each do |review| %>
+  <% sum += review.rating %>
+  <% end %>
+  <% if sum > 0 %>
+    <%= sum / r.reviews.count %></li>
+  <% end %>
+
+<%= link_to "Delete restaurant", restaurant_path(r), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+<% end %> <br> <br>
+<%= link_to "New restaurant", new_restaurant_path %>
+</ol>
+</div>
